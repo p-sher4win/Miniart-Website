@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid form-signin w-100 m-auto">
+        <form method="POST" action="{{ url_for('root.edit_category', id=category_to_update.id) }}">
+            {{ form.hidden_tag() }}
+
+            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Update Category - {{
+                category_to_update.type }}</h1>
+
+            <div class="form-floating my-2">
+                {{ form.type(type="text", class="form-control", id="type", value=category_to_update.type) }}
+                {{ form.type.label(for="type") }}
+            </div>
+
+            <div class="my-3"></div>
+
+            {{ form.update(class="btn btn-sm btn-success px-4 mt-2", type="submit") }}
+
+            <a href="{{ url_for('root.delete_category', id=category_to_update.id) }}"
+                class="btn btn-sm btn-danger px-4 text-uppercase mx-2 mt-2" , type="button">Delete <i
+                    class="bi bi-trash3"></i></a>
+
+            <a href="{{ url_for('root.list_categories') }}"
+                class="btn btn-sm btn-secondary ps-2 pe-3 text-uppercase mt-2" , type="button"><i
+                    class="bi bi-chevron-left"></i> To Category List</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

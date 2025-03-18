@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div>
+        <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Dashboard</h1>
+    </div>
+
+    <div class="col-9 card mx-auto">
+        <h3 class="card-header text-uppercase text-center">{{ current_user.name }}</h3>
+        <div class="card-body">
+
+            <p class="card-text border rounded p-2">
+                <span class="fw-medium">User ID →</span>
+                {{ current_user.id }}
+            </p>
+
+            <p class="card-text border rounded p-2">
+                <span class="fw-medium">Name →</span>
+                {{ current_user.name }}
+            </p>
+
+            <p class="card-text border rounded p-2">
+                <span class="fw-medium">Username →</span>
+                {{ current_user.username }}
+            </p>
+
+            <p class="card-text border rounded p-2">
+                <span class="fw-medium">Email →</span>
+                {{ current_user.email }}
+            </p>
+
+            <a href="{{ url_for('auth.update_user', id=current_user.id) }}"
+                class="btn btn-sm btn-success px-4 w-100 text-uppercase">
+                Edit <i class="bi bi-pencil-square"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-10 mx-auto d-flex flex-column align-items-center flex-md-row justify-content-md-start my-5">
+
+        {% if current_user.id == 1 %}
+        <div class="card shadow-sm my-2 w-75">
+            <div class="card-header fw-semibold text-center">Current Users</div>
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">{{ users_count }} Users</h5>
+                <a href="{{ url_for('auth.users') }}" class="text-capitalize">User List <i class="bi bi-arrow-right-short"></i></a>
+            </div>
+        </div>
+        {% endif %}
+    
+        <div class="card shadow-sm my-2 w-75 mx-md-3">
+            <div class="card-header fw-semibold text-center">Current Inventory</div>
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">{{ products_count }} Items</h5>
+                <a href="{{ url_for('root.inventory') }}" class="text-capitalize">Inventory <i class="bi bi-arrow-right-short"></i></a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm my-2 w-75">
+            <div class="card-header fw-semibold text-center">Current Categories</div>
+            <div class="card-body text-center">
+                <h5 class="card-title mb-3">{{ category_count }} Categories</h5>
+                <a href="{{ url_for('root.list_categories') }}" class="text-capitalize">Categories <i class="bi bi-arrow-right-short"></i></a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div>
+        <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Inventory</h1>
+    </div>
+
+    <div class="container my-5">
+        <form method="POST" action="{{ url_for('root.search') }}" class="d-flex" role="search">
+            {{ form.hidden_tag() }}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_for">
+            <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+
+    {% if products %}
+
+    <!-- ROW -->
+    <div class="row gx-3 gy-4 mb-3">
+
+        {% for product in products %}
+
+        <!-- COLUMN 1 -->
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="p-2 border rounded shadow-sm">
+                <img src="https://placehold.co/150x100" class="img-fluid w-100 mb-4" alt="product">
+                <p><span class="me-1">ID -</span>{{ product.id }}</p>
+                <h6 class="text-capitalize d-flex text-break m-0">{{ product.title }}</h6>
+                <p class="mb-4"><span class="me-1">Rupees(₹) -</span>{{ product.price }}</p>
+                <a href="{{ url_for('root.product', id=product.id) }}"
+                    class="btn btn-sm btn-primary w-100 inv-p text-capitalize">
+                    View Product <i class="bi bi-arrow-right-short"></i>
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+</div>
+
+
+{% endblock %}

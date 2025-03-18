@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid form-signin w-100 m-auto text-center">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Sign Up</h1>
+
+            <div class="form-floating my-2">
+                {{ form.name(type="text", class="form-control", id="name", placeholder="") }}
+                {{ form.name.label(for="name") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.username(type="text", class="form-control", id="username", placeholder="") }}
+                {{ form.username.label(for="username") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.email(type="email", class="form-control", id="email", placeholder="") }}
+                {{ form.email.label(for="email") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.password_hash(type="password", class="form-control", id="password", placeholder="") }}
+                {{ form.password_hash.label(for="password") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.password_hash2(type="password", class="form-control", id="password2", placeholder="") }}
+                {{ form.password_hash2.label(for="password2") }}
+            </div>
+
+            <div class="my-3"></div>
+
+            {{ form.add(class="btn btn-sm btn-success px-4", type="submit") }}
+        </form>
+    </div>
+</div>
+{% endblock %}

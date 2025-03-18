@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid form-signin w-100 m-auto">
+        <form method="POST" action="{{ url_for('root.edit_product', id=product_to_update.id) }}">
+            {{ form.hidden_tag() }}
+
+            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Update Product - {{ product_to_update.title }}</h1>
+
+            <div class="form-floating my-2">
+                {{ form.title(type="text", class="form-control", id="title", value=product_to_update.title) }}
+                {{ form.title.label(for="title") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.price(type="number", class="form-control", id="price", value=product_to_update.price) }}
+                {{ form.price.label(for="price") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.img_url(type="text", class="form-control", id="img", value=product_to_update.img_url) }}
+                {{ form.img_url.label(for="img") }}
+            </div>
+            <div class="form-floating my-2">
+                <p class="border px-3 py-2 rounded m-0">
+                    <span class="me-2 text-body-tertiary">
+                        Description →
+                    </span>{{ product_to_update.detail }}
+                </p>
+            </div>
+            <div class="form-floating my-2">
+                {{ form.detail(type="text", class="form-control", id="detail", value=product_to_update.detail, style="height: 150px;") }}
+                {{ form.detail.label(for="detail") }}
+            </div>
+            <div class="form-floating my-2">
+                <p class="border px-3 py-2 rounded m-0">
+                    <span class="me-2 text-body-tertiary">
+                        Category →
+                    </span>{{ product_to_update.category.type }}
+                </p>
+            </div>
+            <div class="form-floating my-2">
+                {{ form.category_id(class="form-select", id="category_id", value=product_to_update.category.type) }}
+                {{ form.category_id.label(for="category_id") }}
+            </div>
+            <div class="form-check mt-4 pt-2">
+                {{ form.bestseller(type="checkbox", class="form-check-input", id="bestseller") }}
+                {{ form.bestseller.label(for="bestseller", class="form-check-label") }}
+            </div>
+
+            <div class="my-3"></div>
+
+            {{ form.update(class="btn btn-sm btn-success px-4 mt-2", type="submit") }}
+
+            <a href="{{ url_for('root.delete_product', id=product_to_update.id) }}" class="btn btn-sm btn-danger px-4 text-uppercase mx-2 mt-2", type="button">Delete <i class="bi bi-trash3"></i></a>
+
+            <a href="{{ url_for('root.product', id=product_to_update.id) }}" class="btn btn-sm btn-secondary ps-2 pe-3 text-uppercase mt-2", type="button"><i class="bi bi-chevron-left"></i> Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

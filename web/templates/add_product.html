@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid form-signin w-100 m-auto">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Add Product</h1>
+
+            <div class="form-floating my-2">
+                {{ form.title(type="text", class="form-control", id="title", placeholder="") }}
+                {{ form.title.label(for="title") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.price(type="number", class="form-control", id="price", placeholder="") }}
+                {{ form.price.label(for="price") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.img_url(type="text", class="form-control", id="img", placeholder="") }}
+                {{ form.img_url.label(for="img") }}
+
+            </div>
+            <div class="form-floating my-2">
+                {{ form.detail(class="form-control", rows="5", id="detail", placeholder="", style="height: 150px;") }}
+                {{ form.detail.label(for="detail") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.category_id(class="form-select", id="category_id") }}
+                {{ form.category_id.label(for="category_id") }}
+            </div>
+            <div class="form-check mt-4 pt-2">
+                {{ form.bestseller(type="checkbox", class="form-check-input", id="bestseller") }}
+                {{ form.bestseller.label(for="bestseller", class="form-check-label") }}
+            </div>
+
+            <div class="my-3"></div>
+
+            {{ form.add(class="btn btn-sm btn-success px-4", type="submit") }}
+
+            <a href="{{ url_for('root.inventory') }}" class="btn btn-sm btn-secondary ps-2 pe-3 my-3 text-uppercase">
+                <i class="bi bi-chevron-left"></i> To Inventory
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}

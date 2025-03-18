@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid mb-5">
+
+    <div class="container text-center my-3 border-bottom mb-5">
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">About Us</h1>
+    </div>
+
+    <div class="container">
+
+        <!-- ROW ONE -->
+        <div class="row gy-4">
+            <div class="col-11 col-sm-10 col-md-6 col-lg-4 text-center mx-auto">
+                <img src="{{ url_for('static', filename='images/about-1.jpg') }}" class="img-fluid" width="400" alt="about">
+            </div>
+            <div class="col-11 col-sm-10 col-md-6 col-lg text-center mx-auto my-md-auto">
+                <h5 class="mb-3">Who We Are</h5>
+                <p>Welcome to <span class="fw-semibold">MiniArt!</span> We are a passionate team dedicated to creating
+                    unique, handcrafted items and stunning paintings. Every piece is thoughtfully designed and carefully
+                    crafted, ensuring high quality, originality, and a personal touch. Our love for handmade artistry
+                    shines through in everything we create, bringing warmth and creativity into every product.</p>
+            </div>
+        </div>
+
+        <!-- BREAK SPACE -->
+        <div class="py-5"></div>
+
+        <!-- ROW TWO -->
+        <div class="row gy-4">
+            <div class="col-11 col-sm-10 d-md-none text-center mx-auto">
+                <img src="{{ url_for('static', filename='images/about-2.jpg') }}" class="img-fluid" width="400" alt="about">
+            </div>
+            <div class="col-11 col-sm-10 col-md-6 col-lg text-center mx-auto my-md-auto">
+                <h5 class="mb-3">Our Mission</h5>
+                <p>
+                    At <span class="fw-semibold">MiniArt</span>, we believe in the charm and authenticity of handmade goods. Our mission is to craft beautiful, meaningful pieces that bring joy to our customers and enhance their spaces. Whether you're searching for a unique gift or something special for yourself, our collection offers something truly one-of-a-kind.
+                    <p class="text-break">
+                    We take pride in our craftsmanship, ensuring that every product reflects the passion, dedication, and artistry that define our brand. Thank you for supporting handmade artistry and small businesses — we couldn’t do this without you!</p>
+                </p>
+            </div>
+            <div class="d-none d-md-block col-md-6 col-lg-4 text-center mx-auto">
+                <img src="https://placehold.co/100" class="img-fluid" width="400" alt="about">
+            </div>
+        </div>
+
+        <!-- BREAK SPACE -->
+        <div class="py-5 my-5"></div>
+
+        <div class="row">
+            <div class="col-11 col-sm-10 col-md-6 col-lg text-center mx-auto my-md-auto">
+                <h4 class="fw-semibold text-body-tertiary">Happy Shopping!</h4>
+                <h6 class="fst-italic fw-normal text-body-tertiary">@MiniArt!</h6>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- BREAK SPACE -->
+<div class="py-5"></div>
+{% endblock %}

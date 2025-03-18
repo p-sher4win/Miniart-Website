@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="container-fluid form-signin w-100 m-auto text-start">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <h1 class="display-5 text fw-normal text-capitalize text-center">Login</h1>
+
+            <p class="text-capitalize mb-5 pb-5 text-center text-body-secondary">Only Admin Can Login!</p>
+
+
+            <div class="form-floating my-2">
+                {{ form.username(type="text", class="form-control", id="username", placeholder="") }}
+                {{ form.username.label(for="username") }}
+            </div>
+            <div class="form-floating my-2">
+                {{ form.password(type="password", class="form-control", id="password", placeholder="") }}
+                {{ form.password.label(for="password") }}
+            </div>
+
+            <div class="my-3"></div>
+
+            {{ form.login(class="btn btn-sm btn-success px-4", type="submit") }}
+
+            <div class="my-3"></div>
+
+        <a href="{{ url_for('routes.home') }}" class="btn btn-sm btn-secondary text-uppercase ps-2 pe-3"><i class="bi bi-chevron-left"></i> Back Home</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

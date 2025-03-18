@@ -1,0 +1,38 @@
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+}
+
+.footer{
+    background-color: #edede9;
+}
+
+.footer-p{
+    font-size: 12px;
+}
+
+.text-body-justify {
+    text-align: justify;
+}
+
+.prd-img-src-p{
+    font-size: 12px;
+}
+
+.date-join-p{
+    font-size: 12px;
+}
+
+.category-side-p{
+    font-size: 10px;
+}
+
+.justify-text-body{
+    text-align: justify;
+}
