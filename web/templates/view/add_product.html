@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="container">
+    <h1 class="display-5 text mb-5 fw-bold text-capitalize text-center">Add Product</h1>
+    
     <div class="container-fluid form-signin w-100 m-auto">
         <form method="POST">
             {{ form.hidden_tag() }}
-
-            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Add Product</h1>
 
             <div class="form-floating my-2">
                 {{ form.title(type="text", class="form-control", id="title", placeholder="") }}
@@ -17,8 +17,8 @@
                 {{ form.price.label(for="price") }}
             </div>
             <div class="form-floating my-2">
-                {{ form.img_url(type="text", class="form-control", id="img", placeholder="") }}
-                {{ form.img_url.label(for="img") }}
+                {{ form.img_urls(class="form-control", rows="5", id="img", placeholder="", style="height: 100px;") }}
+                {{ form.img_urls.label(for="img") }}
 
             </div>
             <div class="form-floating my-2">
@@ -26,7 +26,7 @@
                 {{ form.detail.label(for="detail") }}
             </div>
             <div class="form-floating my-2">
-                {{ form.category_id(class="form-select", id="category_id") }}
+                {{ form.category_id(class="form-select", id="category_id",) }}
                 {{ form.category_id.label(for="category_id") }}
             </div>
             <div class="form-check mt-4 pt-2">

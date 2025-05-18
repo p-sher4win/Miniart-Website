@@ -19,21 +19,24 @@
                 <img src="{{ url_for('static', filename='images/hero-1.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-gradient bg-opacity-50 rounded shadow-lg">
                     <h5>Uniquely Handcrafted with Love</h5>
-                    <p>Explore our collection of beautifully handmade crafts, each piece thoughtfully designed to bring creativity and warmth into your space.</p>
+                    <p>Explore our collection of beautifully handmade crafts, each piece thoughtfully designed to bring
+                        creativity and warmth into your space.</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ url_for('static', filename='images/hero-2.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-gradient bg-opacity-50 rounded shadow-lg">
                     <h5>Art That Speaks to You</h5>
-                    <p>From stunning paintings to personalized artwork, we create pieces that reflect your style and personality. Let’s bring your vision to life! </p>
+                    <p>From stunning paintings to personalized artwork, we create pieces that reflect your style and
+                        personality. Let’s bring your vision to life! </p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="{{ url_for('static', filename='images/hero-3.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block bg-dark bg-gradient bg-opacity-50 rounded shadow-lg">
                     <h5>"Gifts That Create Smiles</h5>
-                    <p>Find the perfect, one-of-a-kind gift for any occasion. Handcrafted with care, our creations are made to be cherished.</p>
+                    <p>Find the perfect, one-of-a-kind gift for any occasion. Handcrafted with care, our creations are
+                        made to be cherished.</p>
                 </div>
             </div>
         </div>
@@ -66,12 +69,42 @@
 
             <!-- SINGLE CARD MAX-3 MIN-1 -->
             <div class="col-7 col-md-3 border p-1 mx-auto">
-                <a href="" class="link-dark link-underline-opacity-0">
+                <a href="{{ url_for('routes.item', id=product.id) }}" class="link-dark link-underline-opacity-0">
                     <div class="d-flex flex-column">
-                        <img src="https://placehold.co/100" alt="product">
+
+                        {% if product.img_urls|length > 1 %}
+                        <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+                        <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for url in product.img_urls %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+
+                        {% elif product.img_urls|length == 1 %}
+                        <!-- SINGLE IMAGE -->
+                        <img src="{{ product.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="product">
+
+                        {% else %}
+                        <!-- NO IMAGE -->
+                        <p class="text-muted">No image available</p>
+                        {% endif %}
+
+
                         <div class="mt-4 px-2">
-                            <p>{{ product.title }}</p>
-                            <p>₹{{ product.price }}</p>
+                            <p class="text-capitalize fw-semibold">{{ product.title }}</p>
+                            <p class="fw-medium">₹{{ product.price }}</p>
                         </div>
                     </div>
                 </a>
@@ -97,9 +130,10 @@
             <!-- SINGLE CARD -->
             <div class="col-10 col-md-3 p-1 mx-auto mb-5">
                 <div class="d-flex flex-column">
-                    <img src="{{ url_for('static', filename='images/ft-1.jpg') }}" class="w-50 mx-auto shadow" alt="product">
+                    <img src="{{ url_for('static', filename='images/ft-1.jpg') }}" class="w-50 mx-auto shadow"
+                        alt="product">
                     <div class="mt-4 px-2">
-                        <h6 class="text-capitalize">Handcrafted Creations</h6>
+                        <h6 class="text-capitalize">Customized <br> Handcrafted Creations</h6>
                         <p>Unique, high-quality handmade crafts made with passion and precision.</p>
                     </div>
                 </div>
@@ -108,9 +142,10 @@
             <!-- SINGLE CARD -->
             <div class="col-10 col-md-3 p-1 mx-auto mb-5">
                 <div class="d-flex flex-column">
-                    <img src="{{ url_for('static', filename='images/ft-2.jpg') }}" class="w-50 mx-auto shadow" alt="product">
+                    <img src="{{ url_for('static', filename='images/ft-2.jpg') }}" class="w-50 mx-auto shadow"
+                        alt="product">
                     <div class="mt-4 px-2">
-                        <h6 class="text-capitalize">Custom Artwork & Paintings</h6>
+                        <h6 class="text-capitalize">Customized <br> Artwork & Paintings</h6>
                         <p>Beautiful, personalized paintings and artistic pieces tailored to your vision.</p>
                     </div>
                 </div>
@@ -119,9 +154,10 @@
             <!-- SINGLE CARD -->
             <div class="col-10 col-md-3 p-1 mx-auto mb-5">
                 <div class="d-flex flex-column">
-                    <img src="{{ url_for('static', filename='images/ft-3.jpg') }}" class="w-50 mx-auto shadow" alt="product">
+                    <img src="{{ url_for('static', filename='images/ft-3.jpg') }}" class="w-50 mx-auto shadow"
+                        alt="product">
                     <div class="mt-4 px-2">
-                        <h6 class="text-capitalize">Thoughtful & Unique Gifts</h6>
+                        <h6 class="text-capitalize">Customer Based <br> Thoughtful & Unique Gifts</h6>
                         <p>One-of-a-kind items perfect for special occasions and meaningful gifting.</p>
                     </div>
                 </div>
@@ -149,7 +185,8 @@
                         <figure>
                             <p>
                                 <span class="fw-semibold">"Absolutely Stunning!"</span><br>
-                                I ordered a handcrafted gift, and it exceeded my expectations! The attention to detail is amazing. Will definitely buy again!
+                                I ordered a handcrafted gift, and it exceeded my expectations! The attention to detail
+                                is amazing. Will definitely buy again!
                             </p>
                             <figcaption class="blockquote-footer">
                                 <cite title="Source Title">Sarah M.</cite>
@@ -166,7 +203,8 @@
                         <figure>
                             <p>
                                 <span class="fw-semibold">"Beautiful & Unique!"</span><br>
-                                The painting I received was even more beautiful in person. It’s now the centerpiece of my living room!
+                                The painting I received was even more beautiful in person. It’s now the centerpiece of
+                                my living room!
                             </p>
                             <figcaption class="blockquote-footer">
                                 <cite title="Source Title">David L.</cite>
@@ -184,7 +222,8 @@
                         <figure>
                             <p>
                                 <span class="fw-semibold">"Perfect Gift Choice!"</span><br>
-                                I bought a handmade craft as a gift, and the recipient loved it! The quality and creativity are top-notch.
+                                I bought a handmade craft as a gift, and the recipient loved it! The quality and
+                                creativity are top-notch.
                             </p>
                             <figcaption class="blockquote-footer">
                                 <cite title="Source Title">Emma R.</cite>

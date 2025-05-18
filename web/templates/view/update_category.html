@@ -2,12 +2,13 @@
 
 {% block content %}
 <div class="container">
+    <h1 class="display-5 text mb-5 fw-bold text-capitalize text-center">Update Category - {{
+        category_to_update.type }}</h1>
+
     <div class="container-fluid form-signin w-100 m-auto">
         <form method="POST" action="{{ url_for('root.edit_category', id=category_to_update.id) }}">
             {{ form.hidden_tag() }}
 
-            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Update Category - {{
-                category_to_update.type }}</h1>
 
             <div class="form-floating my-2">
                 {{ form.type(type="text", class="form-control", id="type", value=category_to_update.type) }}

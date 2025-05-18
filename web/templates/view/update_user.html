@@ -2,14 +2,13 @@
 
 {% block content %}
 <div class="container">
-
-    {% if id == current_user.id or current_user.id == 1 %}
-
+    <h1 class="display-5 text mb-5 fw-bold text-capitalize text-center">Update User</h1>
+    
+    {% if current_user.id == name_to_update.id or current_user.username == "admin" %}
     <div class="container-fluid form-signin w-100 m-auto">
         <form method="POST" action="{{ url_for('auth.update_user', id=name_to_update.id) }}">
             {{ form.hidden_tag() }}
 
-            <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center">Update User</h1>
 
             <div class="form-floating my-2">
                 {{ form.name(type="text", class="form-control", id="name", value=name_to_update.name) }}
@@ -28,7 +27,7 @@
 
             {{ form.update(class="btn btn-sm btn-success px-3 mt-2", type="submit") }}
 
-            {% if name_to_update.id != 1 %}
+            {% if name_to_update.username != "admin" %}
 
                 <a href="{{ url_for('auth.delete_user', id=name_to_update.id) }}" class="btn btn-sm btn-danger px-4 text-uppercase mx-2 mt-2", type="button">Delete <i class="bi bi-trash3"></i></a>
 

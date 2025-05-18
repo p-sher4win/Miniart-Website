@@ -1,19 +1,20 @@
-from . import db
+from mongoengine import *
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
-# DATABASE MODELS
-# CREATE USERS MODEL
-class Users(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(150), nullable=False)
-    username = db.Column(db.String(150), nullable=False, unique=True)
-    email = db.Column(db.String(150), nullable=False, unique=True)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)
+
+# MONGO DB MODELS
+# USERS MODEL
+class Users(Document, UserMixin):
+    meta = {'collection': 'users'}
+    name = StringField(required=True, max_length=150)
+    username = StringField(required=True, unique=True, max_length=150)
+    email = StringField(required=True, unique=True, max_length=150)
+    date_added = DateTimeField(default=datetime.utcnow)
     # PASSWORD HASHING
-    password_hash = db.Column(db.String(512), nullable=False)
+    password_hash = StringField(required=True, max_length=512)
 
     @property
     def password(self):
@@ -25,50 +26,51 @@ class Users(db.Model, UserMixin):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    def get_id(self):
+        return str(self.id)
 
     # CREATE A STRING
     def __repr__(self):
         return f"<User {self.username}>"
     
 
-# CREATE PRODUCT CATEGORIES MODEL
-class Categories(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    type = db.Column(db.String(255), nullable=False, unique=True)
+# CATEGORIES MODEL
+class Categories(Document):
+    meta = {'collection': 'categories'}
+    type = StringField(required=True, unique=True, max_length=255)
 
-    # FORIEGN KEY RELATION WITH PRODUCT MODEL
-    products = db.relationship('Products', backref='category')
-
+    # CREATE A STRING
     def __repr__(self):
         return f"<Category {self.type}>"
 
 
-# CREATE PRODUCTS MODEL
-class Products(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(255), nullable=False, unique=True)
-    price = db.Column(db.Float, nullable=False)
-    img_url = db.Column(db.String(255), nullable=False)
-    detail = db.Column(db.Text, nullable=True)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow)
-    date_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-    # FORIEGN KEY TO LINK CATEGORY MODEL
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-
+# PRODUCTS MODEL
+class Products(Document):
+    meta = {'collection': 'products'}
+    title = StringField(required=True, max_length=255)
+    price = FloatField(required=True)
+    img_urls = ListField(StringField(), required=True, default=[])
+    detail = StringField()
+    date_added = DateTimeField(default=datetime.utcnow)
+    date_updated = DateTimeField(default=datetime.utcnow)
+    # RELATIONSHIP WITH CATEGORIES MODEL
+    category = ReferenceField(Categories, reverse_delete_rule=NULLIFY)
     # BESTSELLER BOOLEAN
-    bestseller = db.Column(db.Boolean, default=False)
+    bestseller = BooleanField(default=False)
 
+    # CREATE A STRING
     def __repr__(self):
         return f"<Product {self.title}>"
     
 
-# CREATE FEEDBACK MODEL
-class Feedback(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
-    phone_number = db.Column(db.String(150), nullable=False)
-    message = db.Column(db.Text, nullable=True)
+# FEEDBACK MODEL
+class Feedback(Document):
+    meta = {'collection': 'feedback'}
+    name = StringField(required=True, max_length=150)
+    phone_number = StringField(required=True, max_length=150)
+    message = StringField()
 
+    # CREATE A STRING
     def __repr__(self):
         return f"<Feedback {self.name}>"

@@ -1,4 +1,9 @@
-.venv
-instance
-migrations
-__pycache__
+# .gitignore file
+
+.venv/
+instance/
+migrations/
+__pycache__/
+*.env
+miniart-sql-db.sql
+create_mysql_db.py

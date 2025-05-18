@@ -1,7 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import Products, Feedback
+from .models import Products, Feedback, Categories
 from .webforms import FeedbackForm
-from . import db
+from mongoengine.errors import DoesNotExist
+from bson import ObjectId
+
+
 
 routes = Blueprint('routes', __name__)
 
@@ -10,72 +13,31 @@ routes = Blueprint('routes', __name__)
 @routes.route('/')
 def home():
 
-    bestsellers = Products.query.order_by(Products.title.asc())
+    bestsellers = Products.objects.order_by('title')
 
-    return render_template('home.html',
+    return render_template('view/home.html',
                            bestsellers=bestsellers)
 
 
-# STORE PAGE
-@routes.route('/store')
-def store():
-    return render_template('store.html')
-
-
-# DIGITAL & STATIONERY PAGE
-@routes.route('/digital-stationery')
-def digital_stationery():
-    return render_template('digital_stationery.html')
-
-
-# FASHION & ACCESSORIES PAGE
-@routes.route('/fashion-accessories')
-def fashion_accessories():
-    return render_template('fashion_accessories.html')
-
-
-# GIFTS & KEEPSAKES PAGE
-@routes.route('/gifts-keepsakes')
-def gifts_keepsakes():
-    return render_template('gifts_keepsakes.html')
-
-
-# HANDMADE CANDLES PAGE
-@routes.route('/handmade-candles')
-def handmade_candles():
-    return render_template('handmade_candles.html')
-
-
-# CRAFTS & FLORAL ART PAGE
-@routes.route('/crafts-flora-art')
-def crafts_flora_art():
-
-    products = Products.query.order_by(Products.title.asc())
-    
-    return render_template('crafts_flora_art.html',
-                           products=products)
-
-
-# HOME & WALL DECO PAGE
-@routes.route('/home-wall-deco')
-def home_wall_deco():
-    return render_template('home_wall_deco.html')
-
-
 # INDIVIDUAL PRODUCT
-@routes.route('/item/<int:id>')
+@routes.route('/item/<string:id>')
 def item(id):
-    # GET PRODUCT BY ID
-    item = Products.query.get_or_404(id)
 
-    return render_template('item.html',
+    # GET PRODUCT BY ID
+    try:
+        item = Products.objects.get(id=ObjectId(id))
+    except DoesNotExist:
+        flash("Product not found!", category='error')
+        return redirect(url_for('routes.home'))
+
+    return render_template('view/item.html',
                            item=item)
 
 
 # ABOUT US PAGE
 @routes.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('view/about.html')
 
 
 # CONTACT US PAGE
@@ -88,11 +50,36 @@ def contact():
                             phone_number=form.phone_number.data,
                             message=form.message.data)
         
-        db.session.add(feedback)
-        db.session.commit()
+        feedback.save()
         flash("Feedback Submitted!", category='success')
         return redirect(url_for('routes.contact'))
 
 
-    return render_template('contact.html',
+    return render_template('view/contact.html',
                            form=form)
+
+
+# STORE PAGE
+@routes.route('/store')
+def store():
+
+    category = Categories.objects()
+
+    return render_template('view/store.html',
+                           category=category)
+
+
+# PRODUCT UNDER A CATEGORY
+@routes.route('/category/<string:id>')
+def category(id):
+    try:
+        category = Categories.objects.get(id=ObjectId(id))
+        products = Products.objects(category=category)
+
+    except Categories.DoesNotExist:
+        flash("Category Not Found!", category='error')
+        return redirect(url_for('routes.store'))
+
+    return render_template('view/category_product.html',
+                           category=category,
+                           products=products)

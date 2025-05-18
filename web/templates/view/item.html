@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid mb-5">
+
+    <div class="container text-center my-3 border-bottom">
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Store</h1>
+    </div>
+
+    <div class="container-fluid mt-5">
+
+        <div class="container text-center my-5">
+            <h6 class="text-uppercase text-body-tertiary">Porduct Details</h6>
+        </div>
+
+
+        <div class="container">
+
+            <div class="row">
+                <!-- ITEM IMAGE -->
+                <div class="col-12 col-sm-8 col-md-7 mx-auto text-center mt-3 mb-5">
+
+                    {% if item.img_urls|length > 1 %}
+                    <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+                    <div id="itemImagesCarousel" class="carousel slide col-lg-9 col-xl-8 mx-auto" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for url in item.img_urls %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ url }}" class="img-fluid img-thumbnail rounded" width="300"
+                                    alt="item image">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#itemImagesCarousel"
+                            data-bs-slide="prev">
+                            <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#itemImagesCarousel"
+                            data-bs-slide="next">
+                            <i class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                        </button>
+                    </div>
+
+                    {% elif item.img_urls|length == 1 %}
+                    <!-- SINGLE IMAGE -->
+                    <img src="{{ item.img_urls[0] }}" class="img-fluid img-thumbnail rounded" width="300"
+                        alt="item image">
+
+                    {% else %}
+                    <!-- NO IMAGE -->
+                    <p class="text-muted">No image available</p>
+                    {% endif %}
+
+                </div>
+
+                <!-- ITEM TITLE -->
+                <div class="col-12 col-sm-8 col-md-7 mx-auto text-center mb-3">
+                    <h6 class="text-capitalize fs-5">{{ item.title }}</h6>
+                </div>
+
+                <!-- ITEM DETAILS -->
+                <div class="col-12 col-sm-8 col-md-7 mx-auto text-start">
+                    <p><span class="text-body-tertiary me-3">Price</span><span class="fw-semibold fst-italic fs-5">₹{{
+                            item.price }}</span></p>
+                    <p class="justify-text-body"><span class="text-body-tertiary me-3">Description</span>{{ item.detail
+                        }}</p>
+                </div>
+
+                <!-- ORDER ITEM -->
+                <div class="col-12 col-sm-8 col-md-7 mx-auto text-center my-4">
+                    <a href="https://wa.me/917798010393?text=Hello,%20I%20would%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A-%20Item%20Name:%20[Enter%20Name]%0A-%20Size:%20[Enter%20Size]%0A-%20Quantity:%20[Enter%20Quantity]"
+                        class="btn btn-sm btn-success w-50 text-capitalize">Place <span class="text-lowercase">an</span>
+                        Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BREAK SPACE -->
+<div class="py-5"></div>
+{% endblock %}

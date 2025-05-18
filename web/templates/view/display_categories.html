@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div>
+        <h1 class="display-5 text mb-5 fw-bold text-capitalize text-center">Categories</h1>
+    </div>
+
+    <div class="container my-5">
+        <a href="{{ url_for('root.dashboard') }}" class="btn btn-sm btn-secondary ps-2 pe-3 my-3 text-uppercase">
+            <i class="bi bi-chevron-left"></i> To Dashboard
+        </a>
+
+        <a href="{{ url_for('root.add_category') }}" class="btn btn-sm btn-primary ps-2 pe-3 my-3 text-uppercase">
+            <i class="bi bi-plus-lg"></i> Add Category
+        </a>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">All Category List</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>
+                        <p>
+                            <span class="me-4">
+                                {{ category.id }} →
+                            </span>
+                            <span class="me-5">
+                                <a href="{{ url_for('root.edit_category', id=category.id) }}"
+                                    class="link-secondary text-capitalize">{{ category.type }}</a>
+                            </span>
+                            <span>
+                                <a href="{{ url_for('root.delete_category', id=category.id) }}"
+                                    class="link-danger">Delete</a>
+                            </span>
+                        </p>
+
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

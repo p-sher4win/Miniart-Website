@@ -1,21 +1,10 @@
 from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from os import path
-from flask_migrate import Migrate
+import mongoengine
+from bson.objectid import ObjectId
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
-import os
 
 
-
-# INITIALIZE DB GLOBALLY
-db = SQLAlchemy()
-
-# DB_NAME = 'miniart-db.db'
-# DB_NAME = 'miniart_db'
-
-# INITIALIZE MIGRATE
-migrate = Migrate()
 
 # LOGIN MANAGER CLASS
 login_manager = LoginManager()
@@ -26,25 +15,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
 
-    print(app.config.get('FLASK_DEBUG'))
-
-
-    # SECRET KEY
-    # app.config['SECRET_KEY'] = os.environ.get()
-
-
-    # SQLALCHEMY URI CONNECTION
-    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-
-
-    # MYSQL URI CONNECTION
-    # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:2002@localhost/{DB_NAME}'
-
 
     # INITIALE DATABASE IN APP
-    db.init_app(app)
-    # MIGRATE CHANGES TO DB
-    migrate.init_app(app, db)
+    mongoengine.connect(
+        db='miniart_db',
+        host=app.config['MONGO_URI']
+    )
 
     
     # IMPORT ROUTE BLUEPRINTS
@@ -57,11 +33,8 @@ def create_app():
 
 
     # CALL CREATE DB FUNCTION
-    # FOR SQLITE
-    # create_database(app)
-
-    # FOR MYSQL
-    create_mysql_db(app)
+    # FOR MONGODB
+    create_mongo_db(app)
 
 
     # LOGIN MANAGER CONFIG
@@ -79,7 +52,7 @@ def create_app():
     # LOAD USERS
     @login_manager.user_loader
     def load_user(user_id):
-        return Users.query.get(int(user_id))
+        return Users.objects.get(id=ObjectId(user_id))
 
 
     # CREATE CUSTOM ERROR PAGES
@@ -98,66 +71,36 @@ def create_app():
 
 
 
-# CREATE SQLITE DB FILE
-# def create_database(app):
-#     if not path.exists('web/' + DB_NAME):
-#         with app.app_context():
-#             db.create_all()
-
-
-# CREATE MYSQL DATABASE
-def create_mysql_db(app):
+# CREATE MONGO DB
+def create_mongo_db(app):
     with app.app_context():
-        db.create_all()
         from .models import Users
 
-        # FETCH ID 1 FROM DB
-        first_user = Users.query.get(1)
+        # FETCH FIRST USER FROM DB
+        first_user = Users.objects.first()
 
-        # IF ID-1 EXISTS
         if first_user:
-            
-            # IF ID-1.USERNAME NOT admin
+            # CHECK IF USER IS ADMIN
             if first_user.username != "admin":
-
-                # DELETE ALL EXISITING USERS IF ANY
-                existing_users = Users.query.count()
-                if existing_users > 0:
-                    db.session.query(Users).delete()
-                    db.session.commit()
-                    print("✅ Deleted All Existing Users!")
-
-                # INSERT ADMIN VALUES
+                Users.objects.delete() # DELETES ALL EXISTING USERS
+                print("\n✅ Deleted All Existing Users!\n")
+                
+                # CREATE ADMIN USER
                 admin = Users(name="Admin",
                               username="admin",
-                              email="admin@minitart.com",
+                              email="admin@miniart.com",
                               password_hash=generate_password_hash("admin"))
-                
-                # ADD & COMMIT ADMIN RECORD TO DATABASE
-                db.session.add(admin)
-                db.session.commit()
-                print("✅ Admin User Created!! ID - 1")
-            
-            # IF ID-1.USERNAME IS admin
+                admin.save()
+                print("\n✅ Admin User Created!\n")
+
             else:
-                print("✅ Admin User Already Exists!")
+                print("\n✅ Admin User Already Exists!\n")
 
-        # IF ID-1 NOT EXISTS
         else:
-            existing_users = Users.query.count()
-            if existing_users > 0:
-                db.session.query(Users).delete()
-                db.session.commit()
-                print("✅ Deleted All Existing Users!")
-
-            # INSERT ADMIN VALUES
-            admin = Users(id=1,
-                          name="Admin",
-                          username="admin",
-                          email="admin@minitart.com",
-                          password_hash=generate_password_hash("admin"))
-            
-            # ADD & COMMIT ADMIN RECORD TO DATABASE
-            db.session.add(admin)
-            db.session.commit()
-            print("✅ Admin User Created!! ID - 1")
+            # INSERT VALUES TO CREATE ADMIN USER
+            admin = Users(name="Admin",
+                              username="admin",
+                              email="admin@miniart.com",
+                              password_hash=generate_password_hash("admin"))
+            admin.save()
+            print("\n✅ Admin User Created!\n")

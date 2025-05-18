@@ -22,7 +22,7 @@ body{
 }
 
 .prd-img-src-p{
-    font-size: 12px;
+    font-size: 7px;
 }
 
 .date-join-p{
@@ -35,4 +35,8 @@ body{
 
 .justify-text-body{
     text-align: justify;
+}
+
+.prd-id-p{
+    font-size: 10px;
 }

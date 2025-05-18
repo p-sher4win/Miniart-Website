@@ -8,4 +8,5 @@ class Config:
     FLASK_ENV = os.environ.get('FLASK_ENV')
     FLASK_APP = os.environ.get('FLASK_APP')
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    MONGO_PASS = os.environ.get('MONGO_PASS')
+    MONGO_URI = f'mongodb+srv://sher4win:{MONGO_PASS}@cluster0.juusclj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'

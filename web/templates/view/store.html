@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid mb-5">
+
+    <div class="container text-center my-3 border-bottom">
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Store</h1>
+    </div>
+
+    <!-- SHOP BY CATEGORY DISPLAY PANEL -->
+    <div class="container-fluid mt-5">
+
+        <!-- PANEL TITLE  -->
+        <div class="container text-center">
+            <h6 class="text-uppercase text-body-tertiary">Shop by category</h6>
+        </div>
+
+        <!-- DIFFERENT CATEGORY LIST -->
+        <div class="container-fluid mt-5">
+
+            <div class="container text-center">
+                <div class="row d-md-none">
+                    {% for c in category %}
+                    <div class="col-6">
+                        <div class="py-5">
+                            <a href="{{ url_for('routes.category', id=c.id) }}" class="text-uppercase fw-semibold link-secondary link-offset-2 link-underline-opacity-50">
+                                {{ c.type }}
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row d-none d-md-flex">
+                    {% for c in category %}
+                    <div class="col-4">
+                        <div class="py-5">
+                            <a href="{{ url_for('routes.category', id=c.id) }}" class="text-uppercase fw-semibold link-secondary link-offset-2 link-underline-opacity-50">
+                                {{ c.type }}
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BREAK SPACE -->
+<div class="py-5"></div>
+{% endblock %}

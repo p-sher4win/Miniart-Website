@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="container text-center my-3 border-bottom">
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Store</h1>
+    </div>
+
+    <!-- PANEL TITLE  -->
+    <div class="container-fluid my-5 text-center">
+        <h6 class="text-uppercase text-body-tertiary">{{ category.type }}</h6>
+    </div>
+
+    {% if products %}
+    <div class="row gy-3 mx-md-5 px-md-3 px-lg-5">
+        {% for product in products %}
+
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="border m-1">
+
+                <a href="{{ url_for('routes.item', id=product.id) }}" class="link-dark link-underline-opacity-0">
+
+                    {% if product.img_urls|length > 1 %}
+                    <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+                    <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for url in product.img_urls %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+
+                    {% elif product.img_urls|length == 1 %}
+                    <!-- SINGLE IMAGE -->
+                    <img src="{{ product.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="product">
+
+                    {% else %}
+                    <!-- NO IMAGE -->
+                    <p class="text-muted">No image available</p>
+                    {% endif %}
+
+                    <div class="mt-4 px-1">
+                        <p class="px-1 text-capitalize fw-semibold">{{ product.title }}</p>
+                        <p class="px-1 fw-medium">₹{{ product.price }}</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    {% else %}
+
+    <div class="container-fluid text-center py-5">
+        <h1 class="display-1 fw-bold mt-5 pt-5 text-capitalize text-danger">Products Not Found!</h1>
+        <p class="text-capitalize mb-5 pb-5 text-danger-emphasis">Sorry! There are no products listed in this category!
+        </p>
+    </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

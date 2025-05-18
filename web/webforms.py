@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, FloatField, TextAreaField, SelectField, BooleanField
 from wtforms.validators import DataRequired, EqualTo
 from wtforms.widgets import TextArea
-from flask_wtf.file import FileField
+
 
 
 # WEB FORMS
@@ -26,7 +26,7 @@ class UserForm(FlaskForm):
 
 # CREATE PRODUCT CATEGORY FORM
 class CategoryForm(FlaskForm):
-    type = StringField("Category Type", validators=[DataRequired()])
+    type = StringField("Input Category Type", validators=[DataRequired()])
     create = SubmitField("CREATE CATEGORY")
     update = SubmitField("UPDATE CATEGORY")
 
@@ -36,19 +36,18 @@ class CategoryForm(FlaskForm):
 class ProductForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     price = FloatField("Price (₹)", validators=[DataRequired()])
-    img_url = StringField("Image URL", validators=[DataRequired()])
+    img_urls = TextAreaField("Image URLs (comma-separated)", widget=TextArea(), validators=[DataRequired()])
     detail = TextAreaField("Description", widget=TextArea())
     bestseller = BooleanField("Best Seller", default=False)
+    # DORPDOWN FOR SELECTING CATEGORY
+    category_id = SelectField("Category", choices=[], coerce=str, validate_choice=False)
     add = SubmitField("ADD")
     update = SubmitField("UPDATE")
-
-    # DORPDOWN FOR SELECTING CATEGORY
-    category_id = SelectField("Category", choices=[], coerce=int)
 
 
 # CREATE PASSWORD RESET FORM
 class PasswordForm(FlaskForm):
-    reset_password_hash = PasswordField("Password (Change)", validators=[DataRequired(), EqualTo('password_hash2', message="Password Doesn't Match!")])
+    reset_password_hash = PasswordField("Password (Change)", validators=[DataRequired(), EqualTo('reset_password_hash2', message="Password Doesn't Match!")])
     reset_password_hash2 = PasswordField("Password (Confirm Change)", validators=[DataRequired()])
     reset = SubmitField("RESET")
 
