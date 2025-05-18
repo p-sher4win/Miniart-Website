@@ -23,7 +23,17 @@
     <!-- MAIN NAVBAR -->
     <nav class="navbar navbar-expand-xl bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('root.dashboard') }}">MiniArt</a>
+
+            <a class="navbar-brand" href="
+            {% if current_user.is_authenticated %}
+                {{ url_for('root.dashboard') }}
+            {% else %}
+                {{ url_for('routes.home') }}
+            {% endif %}">
+                MiniArt
+            </a>
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
