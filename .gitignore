@@ -4,6 +4,6 @@
 instance/
 migrations/
 __pycache__/
-*.env
+.env
 miniart-sql-db.sql
 create_mysql_db.py
