@@ -21,7 +21,7 @@
             <div class="container text-center">
                 <div class="row d-md-none">
                     {% for c in category %}
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="py-5">
                             <a href="{{ url_for('routes.category', id=c.id) }}" class="text-uppercase fw-semibold link-secondary link-offset-2 link-underline-opacity-50">
                                 {{ c.type }}
