@@ -20,37 +20,40 @@
                 <!-- ITEM IMAGE -->
                 <div class="col-12 col-sm-8 col-md-7 mx-auto text-center mt-3 mb-5">
 
-                    {% if item.img_urls|length > 1 %}
+                    {% if product.img_urls|length > 1 %}
                     <!-- CAROUSEL FOR MULTIPLE IMAGES -->
-                    {% for url in item.img_urls %}
-                    <div id="itemImagesCarousel" class="carousel slide col-lg-9 col-xl-8 mx-auto"
-                        data-bs-ride="carousel">
+                    <div id="productImagesCarousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            {% for url in product.img_urls %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img src="{{ url }}" class="img-fluid img-thumbnail rounded" width="300"
-                                    alt="item image">
+                                <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
                             </div>
+                            {% endfor %}
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#itemImagesCarousel"
-                            data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="prev">
                             <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#itemImagesCarousel"
-                            data-bs-slide="next">
-                            <i class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="next">
+                            <i
+                                class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                     </div>
-                    {% endfor %}
 
-                    {% elif item.img_urls|length == 1 %}
+                    {% elif product.img_urls|length == 1 %}
                     <!-- SINGLE IMAGE -->
-                    <img src="{{ item.img_urls[0] }}" class="img-fluid img-thumbnail rounded" width="300"
-                        alt="item image">
+                    <img src="{{ product.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="product">
 
                     {% else %}
                     <!-- NO IMAGE -->
                     <p class="text-muted">No image available</p>
                     {% endif %}
+
+                    <div class="mt-4 px-1">
+                        <p class="px-1 text-capitalize fw-semibold">{{ product.title }}</p>
+                        <p class="px-1 fw-medium">₹{{ product.price }}</p>
+                    </div>
 
                 </div>
 

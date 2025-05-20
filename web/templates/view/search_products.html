@@ -3,7 +3,8 @@
 {% block content %}
 <div class="container-fluid">
     <div>
-        <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center"> Showing Results for → {{ search_for }}</h1>
+        <h1 class="display-5 text mb-5 fw-normal text-capitalize text-center"> Showing Results for → {{ search_for }}
+        </h1>
     </div>
 
     <div class="container my-5">
@@ -24,7 +25,40 @@
         <!-- COLUMN 1 -->
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
             <div class="p-2 border rounded shadow-sm">
-                <img src="https://placehold.co/150x100" class="img-fluid w-100 mb-4" alt="product">
+                {% if product.img_urls|length > 1 %}
+                <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+                <div id="productImagesCarousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for url in product.img_urls %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button"
+                        data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="prev">
+                        <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                        data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="next">
+                        <i class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                    </button>
+                </div>
+
+                {% elif product.img_urls|length == 1 %}
+                <!-- SINGLE IMAGE -->
+                <img src="{{ product.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="product">
+
+                {% else %}
+                <!-- NO IMAGE -->
+                <p class="text-muted">No image available</p>
+                {% endif %}
+
+                <div class="mt-4 px-1">
+                    <p class="px-1 text-capitalize fw-semibold">{{ product.title }}</p>
+                    <p class="px-1 fw-medium">₹{{ product.price }}</p>
+                </div>
+
                 <p><span class="me-1">ID -</span>{{ product.id }}</p>
                 <h6 class="text-capitalize d-flex text-break m-0">{{ product.title }}</h6>
                 <p class="mb-4"><span class="me-1">Rupees(₹) -</span>{{ product.price }}</p>
@@ -44,7 +78,9 @@
 
     <div class="container-fluid text-center py-5">
         <h1 class="display-1 fw-bold mt-5 pt-5 text-capitalize text-danger">Opps! No results found.</h1>
-        <p class="mb-5 pb-5 text-body-emphasis">Could not find product with title <span class="fw-semibold text-decoration-underline">{{ search_for }}</span> ! Try searching a different title.</p>
+        <p class="mb-5 pb-5 text-body-emphasis">Could not find product with title <span
+                class="fw-semibold text-decoration-underline">{{ search_for }}</span> ! Try searching a different title.
+        </p>
     </div>
 
     {% endif %}
