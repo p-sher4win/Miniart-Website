@@ -23,7 +23,7 @@
 
                     {% if product.img_urls|length > 1 %}
                     <!-- CAROUSEL FOR MULTIPLE IMAGES -->
-                    <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="productImagesCarousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             {% for url in product.img_urls %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -31,11 +31,11 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel{{ product.id }}"
                             data-bs-slide="prev">
                             <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel"
+                        <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel{{ product.id }}"
                             data-bs-slide="next">
                             <i
                                 class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
