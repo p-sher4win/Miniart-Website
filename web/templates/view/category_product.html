@@ -23,23 +23,23 @@
 
                     {% if product.img_urls|length > 1 %}
                     <!-- CAROUSEL FOR MULTIPLE IMAGES -->
+                    {% for url in product.img_urls %}
                     <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            {% for url in product.img_urls %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
                                 <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
                             </div>
-                            {% endfor %}
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
                             data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
+                            <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#productImagesCarousel"
                             data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
+                            <i class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                     </div>
+                    {% endfor %}
 
                     {% elif product.img_urls|length == 1 %}
                     <!-- SINGLE IMAGE -->

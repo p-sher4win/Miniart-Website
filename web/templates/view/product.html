@@ -13,7 +13,7 @@
             <div class="mb-4 mt-2 px-1 text-md-center">
                 <h4 class="text-capitalize fw-semibold">{{ product.title }}</h4>
             </div>
-            <div>
+            <div class="col-6 col-md-8">
                 <p><span class="fw-medium me-1">Product ID :</span> <span class="prd-id-p">{{ product.id }}</span></p>
                 <p><span class="fw-medium me-1">Price(₹) -</span>{{ product.price }}</p>
                 <div class="d-none d-sm-flex d-md-flex flex-sm-column flex-md-column d-lg-none">
@@ -40,14 +40,13 @@
         <!-- WORD IMAGE -->
 
         <div class="col-6 col-md-4 text-center">
+            {% for url in product.img_urls %}
             <div id="productImagesCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    {% for url in product.img_urls %}
                     <div class="carousel-item {% if loop.first %}active{% endif %}">
                         <img src="{{ url }}" class="w-100 pt-2" alt="Product Image">
                         <p class="text-body-tertiary prd-img-src-p">{{ url }}</p>
                     </div>
-                    {% endfor %}
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#productImagesCarousel"
                     data-bs-slide="prev">
@@ -58,6 +57,7 @@
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
+            {% endfor %}
 
         </div>
 
