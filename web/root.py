@@ -188,8 +188,11 @@ def add_product():
             # INSERT PRODUCT RECORD TO DB
             product.save()
             flash("Product Added!", category='success')
-            return render_template('view/add_product.html',
-                           form=form)
+            # form = ProductForm()  # reset form
+            # form.category_id.choices = [('', '-- select --')] + [(str(c.id), c.type) for c in categories]
+            # return render_template('view/add_product.html',
+            #                form=form)
+            return redirect(url_for('root.add_product'))
         
         except NotUniqueError:
             flash("Product with this title already exists. Please use a different title.", category='error')
