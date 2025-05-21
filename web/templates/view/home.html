@@ -61,16 +61,17 @@
         <h1 class="text-center my-5 py-5 text-capitalize">Our Bestsellers</h1>
 
         <!-- CARD LAYOUT -->
-        <div class="row g-4">
+        <div class="row gy-4">
 
             {% for product in bestsellers %}
 
             {% if product.bestseller == True %}
 
             <!-- SINGLE CARD MAX-3 MIN-1 -->
-            <div class="col-7 col-md-3 border p-1 mx-auto">
-                <a href="{{ url_for('routes.item', id=product.id) }}" class="link-dark link-underline-opacity-0">
-                    <div class="d-flex flex-column">
+            <div class="col-7 col-sm-4 col-md-3 col-lg-2 p-1 mx-auto d-flex flex-column">
+                <div class="card border m-1 w-100 product-card shadow-sm card-hover-pop">
+
+                    <a href="{{ url_for('routes.item', id=product.id) }}" class="link-dark link-underline-opacity-0">
 
                         {% if product.img_urls|length > 1 %}
                         <!-- CAROUSEL FOR MULTIPLE IMAGES -->
@@ -78,43 +79,36 @@
                             <div class="carousel-inner">
                                 {% for url in product.img_urls %}
                                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                    <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="Product Image">
+                                    <img src="{{ url }}" class="img-fluid product-img" alt="Product Image">
                                 </div>
                                 {% endfor %}
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="prev">
-                                <i
-                                    class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                                <i class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                             </button>
                             <button class="carousel-control-next" type="button"
                                 data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="next">
-                                <i
-                                    class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                                <i class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                             </button>
                         </div>
 
                         {% elif product.img_urls|length == 1 %}
                         <!-- SINGLE IMAGE -->
-                        <img src="{{ product.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="product">
+                        <img src="{{ product.img_urls[0] }}" class="img-fluid product-img" alt="product">
 
                         {% else %}
                         <!-- NO IMAGE -->
-                        <p class="text-muted">No image available</p>
+                        <p class="text-muted text-center py-4">No image available</p>
                         {% endif %}
 
-                        <div class="mt-4 px-1">
-                            <p class="px-1 text-capitalize fw-semibold">{{ product.title }}</p>
-                            <p class="px-1 fw-medium">₹{{ product.price }}</p>
+                        <div class="mt-3 px-1">
+                            <p class="px-1 m-0 text-capitalize fw-medium">{{ product.title }}</p>
+                            <p class="px-1 mt-3 mb-0 ms-0 me-0 fw-semibold">₹{{ product.price }}</p>
                         </div>
+                    </a>
 
-
-                        <div class="mt-4 px-2">
-                            <p class="text-capitalize fw-semibold">{{ product.title }}</p>
-                            <p class="fw-medium">₹{{ product.price }}</p>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </div>
             {% endif %}
 
@@ -244,16 +238,12 @@
 
     </div>
 
-
+    
     <!-- EXPLORE MORE -->
     <div class="container my-5 text-center">
         <a href="{{ url_for('routes.store') }}" class="btn btn-primary text-capitalize px-4 my-5"><span
-                class="me-2">Explore</span>
-            <i class="bi bi-rocket-takeoff"></i></a>
+                class="me-2">To Store 🛒</span>    
+        </a>
     </div>
-
 </div>
-
-<!-- BREAK SPACE -->
-<div class="py-5"></div>
 {% endblock %}

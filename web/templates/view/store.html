@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container-fluid mb-5">
+<div class="container-fluid">
 
     <div class="container text-center my-3 border-bottom">
         <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Store</h1>
@@ -22,10 +22,15 @@
                 <div class="row d-md-none">
                     {% for c in category %}
                     <div class="col-12">
-                        <div class="py-5">
-                            <a href="{{ url_for('routes.category', id=c.id) }}" class="text-uppercase fw-semibold link-secondary link-offset-2 link-underline-opacity-50">
-                                {{ c.type }}
-                            </a>
+                        <div class="mb-4">
+                            <div class="card border-secondary-subtle mx-auto shadow-sm card-hover-pop" style="max-width: 16rem;">
+                                <a href="{{ url_for('routes.category', id=c.id) }}"
+                                    class="text-capitalize fw-semibold link-secondary link-underline link-underline-opacity-0">
+                                    <div class="card-body text-secondary">
+                                        <h6 class="card-title">{{ c.type }}</h6>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -34,22 +39,21 @@
                 <div class="row d-none d-md-flex">
                     {% for c in category %}
                     <div class="col-4">
-                        <div class="py-5">
-                            <a href="{{ url_for('routes.category', id=c.id) }}" class="text-uppercase fw-semibold link-secondary link-offset-2 link-underline-opacity-50">
-                                {{ c.type }}
-                            </a>
+                        <div class="mb-5">
+                            <div class="card border-secondary-subtle mx-auto card-hover-pop" style="max-width: 16rem;">
+                                <a href="{{ url_for('routes.category', id=c.id) }}"
+                                    class="text-capitalize fw-semibold link-secondary link-underline link-underline-opacity-0">
+                                    <div class="card-body text-secondary">
+                                        <h6 class="card-title">{{ c.type }}</h6>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-        
         </div>
-
     </div>
-
 </div>
-
-<!-- BREAK SPACE -->
-<div class="py-5"></div>
 {% endblock %}

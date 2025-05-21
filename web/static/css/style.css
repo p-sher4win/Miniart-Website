@@ -40,3 +40,37 @@ body{
 .prd-id-p{
     font-size: 10px;
 }
+
+.card-hover-pop {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover-pop:hover {
+    transform: scale(1.03);
+    box-shadow: var(--bs-box-shadow-sm) !important; /* or use shadow-lg for more lift */
+}
+
+.card-hover-pop:active {
+    transform: scale(0.98);
+    box-shadow: var(--bs-box-shadow-sm) !important;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.product-img {
+    height: 220px; /* Fixed height for uniformity; adjust as needed */
+    object-fit: cover; /* Ensures image fills space proportionally */
+    object-position: center; /* Centers the image focus */
+    width: 100%;
+    border-radius: 0.25rem; /* Slight rounding to match Bootstrap card look */
+}
+
+.fixed-img {
+    height: 300px; /* or any height you prefer */
+    object-fit: cover;
+    width: auto;
+  }

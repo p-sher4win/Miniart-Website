@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container-fluid mb-5">
+<div class="container-fluid">
 
     <div class="container text-center my-3 border-bottom">
-        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Store</h1>
+        <h1 class="display-6 fw-bold text-capitalize text-body-tertiary"><a
+                href="{{ url_for('routes.category', id=item.category.id) }}"
+                class="text-body-tertiary link-underline link-underline-opacity-0">{{ item.category.type }}</a></h1>
     </div>
 
     <div class="container-fluid mt-5">
@@ -12,7 +14,6 @@
         <div class="container text-center my-5">
             <h6 class="text-uppercase text-body-tertiary">Porduct Details</h6>
         </div>
-
 
         <div class="container">
 
@@ -26,61 +27,60 @@
                         <div class="carousel-inner">
                             {% for url in item.img_urls %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img src="{{ url }}" class="img-fluid w-100 mb-2" alt="item Image">
+                                <img src="{{ url }}" class="img-fluid mb-2 fixed-img" alt="item Image">
                             </div>
                             {% endfor %}
                         </div>
                         <button class="carousel-control-prev" type="button"
                             data-bs-target="#itemImagesCarousel{{ item.id }}" data-bs-slide="prev">
-                            <i class="bi bi-chevron-left text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                            <i class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                         <button class="carousel-control-next" type="button"
                             data-bs-target="#itemImagesCarousel{{ item.id }}" data-bs-slide="next">
-                            <i
-                                class="bi bi-chevron-right text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                            <i class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                     </div>
 
                     {% elif item.img_urls|length == 1 %}
                     <!-- SINGLE IMAGE -->
-                    <img src="{{ item.img_urls[0] }}" class="img-fluid w-100 mb-2" alt="item">
+                    <img src="{{ item.img_urls[0] }}" class="img-fluid mb-2 fixed-img" alt="item">
 
                     {% else %}
                     <!-- NO IMAGE -->
                     <p class="text-muted">No image available</p>
                     {% endif %}
 
-                    <div class="mt-4 px-1">
-                        <p class="px-1 text-capitalize fw-semibold">{{ item.title }}</p>
-                        <p class="px-1 fw-medium">₹{{ item.price }}</p>
-                    </div>
-
                 </div>
 
                 <!-- ITEM TITLE -->
                 <div class="col-12 col-sm-8 col-md-7 mx-auto text-center mb-3">
-                    <h6 class="text-capitalize fs-5">{{ item.title }}</h6>
+                    <h1 class="text-capitalize fw-medium fs-6">{{ item.title }}</h1>
                 </div>
 
                 <!-- ITEM DETAILS -->
-                <div class="col-12 col-sm-8 col-md-7 mx-auto text-start">
-                    <p><span class="text-body-tertiary me-3">Price</span><span class="fw-semibold fst-italic fs-5">₹{{
-                            item.price }}</span></p>
-                    <p class="justify-text-body"><span class="text-body-tertiary me-3">Description</span>{{ item.detail
-                        }}</p>
+                <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                    <table class="table table-sm table-borderless">
+                        <tbody>
+                            <tr>
+                                <td class="text-end"><span class="text-body-tertiary">Price</span></td>
+                                <td class="ps-2 ps-md-5"><span class="fw-semibold fst-italic fs-5">₹{{ item.price }}</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-end"><span class="text-body-tertiary">Description</span></td>
+                                <td class="ps-2 ps-md-5">{{ item.detail }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <!-- ORDER ITEM -->
                 <div class="col-12 col-sm-8 col-md-7 mx-auto text-center my-4">
-                    <a href="https://wa.me/917798010393?text=Hello,%20I%20would%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A-%20Item%20Name:%20[Enter%20Name]%0A-%20Size:%20[Enter%20Size]%0A-%20Quantity:%20[Enter%20Quantity]"
-                        class="btn btn-sm btn-success w-50 text-capitalize">Place <span class="text-lowercase">an</span>
-                        Order</a>
+                    <a href="https://wa.me/917798010393?text=Hello,%20I%20would%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A-%20Item%20Name:%20[Enter%20Name]%0A-%20Size:%20[Enter%20Size]%0A-%20Quantity:%20[Enter%20Quantity]" class="btn btn-sm btn-success w-50 text-capitalize shadow">
+                        Place <span class="text-lowercase">an</span> Order
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- BREAK SPACE -->
-<div class="py-5"></div>
 {% endblock %}
