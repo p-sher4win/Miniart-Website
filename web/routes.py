@@ -3,6 +3,7 @@ from .models import Products, Feedback, Categories
 from .webforms import FeedbackForm
 from mongoengine.errors import DoesNotExist
 from bson import ObjectId
+import random
 
 
 
@@ -74,7 +75,8 @@ def store():
 def category(id):
     try:
         category = Categories.objects.get(id=ObjectId(id))
-        products = Products.objects(category=category)
+        products = list(Products.objects(category=category))
+        random.shuffle(products)
 
     except Categories.DoesNotExist:
         flash("Category Not Found!", category='error')
