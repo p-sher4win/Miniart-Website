@@ -47,7 +47,7 @@ body{
 
 .card-hover-pop:hover {
     transform: scale(1.03);
-    box-shadow: var(--bs-box-shadow-sm) !important; /* or use shadow-lg for more lift */
+    box-shadow: var(--bs-box-shadow-sm) !important;
 }
 
 .card-hover-pop:active {
@@ -62,15 +62,26 @@ body{
 }
 
 .product-img {
-    height: 220px; /* Fixed height for uniformity; adjust as needed */
-    object-fit: cover; /* Ensures image fills space proportionally */
-    object-position: center; /* Centers the image focus */
+    height: 220px;
+    object-fit: cover;
+    object-position: center;
     width: 100%;
-    border-radius: 0.25rem; /* Slight rounding to match Bootstrap card look */
+    border-radius: 0.25rem;
 }
 
 .fixed-img {
-    height: 300px; /* or any height you prefer */
+    height: 300px;
     object-fit: cover;
     width: auto;
-  }
+}
+
+.review-time-p{
+    font-size: 11px;
+}
+
+.merienda-font {
+  font-family: "Merienda", cursive;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}

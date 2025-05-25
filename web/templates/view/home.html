@@ -58,7 +58,7 @@
     <div class="container my-5 pt-5">
 
         <!-- SECTION TITLE -->
-        <h1 class="text-center my-5 py-5 text-capitalize">Our Bestsellers</h1>
+        <h1 class="text-center mt-5 pt-5 mb-3 text-capitalize">Our Bestsellers</h1>
 
         <!-- CARD LAYOUT -->
         <div class="row gy-4">
@@ -85,11 +85,13 @@
                             </div>
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="prev">
-                                <i class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                                <i
+                                    class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                             </button>
                             <button class="carousel-control-next" type="button"
                                 data-bs-target="#productImagesCarousel{{ product.id }}" data-bs-slide="next">
-                                <i class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                                <i
+                                    class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                             </button>
                         </div>
 
@@ -123,13 +125,13 @@
     <div class="container my-5 pt-5">
 
         <!-- SECTION TITLE -->
-        <h1 class="text-center my-5 py-5 text-capitalize">We specialize In</h1>
+        <h1 class="text-center mt-5 pt-5 mb-3 text-capitalize">We specialize <span class="text-lowercase">in</span></h1>
 
         <!-- CARD LAYOUT -->
         <div class="row g-4 text-center">
 
             <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
+            <div class="col-10 col-md-3 p-1 mx-auto mb-4">
                 <div class="d-flex flex-column">
                     <img src="{{ url_for('static', filename='images/ft-1.jpg') }}" class="w-50 mx-auto shadow"
                         alt="product">
@@ -141,7 +143,7 @@
             </div>
 
             <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
+            <div class="col-10 col-md-3 p-1 mx-auto mb-4">
                 <div class="d-flex flex-column">
                     <img src="{{ url_for('static', filename='images/ft-2.jpg') }}" class="w-50 mx-auto shadow"
                         alt="product">
@@ -153,7 +155,7 @@
             </div>
 
             <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
+            <div class="col-10 col-md-3 p-1 mx-auto">
                 <div class="d-flex flex-column">
                     <img src="{{ url_for('static', filename='images/ft-3.jpg') }}" class="w-50 mx-auto shadow"
                         alt="product">
@@ -169,80 +171,95 @@
     </div>
 
 
+    <!-- ACHIEVEMENTS SECTION PANEL -->
+
+    <div class="container my-5 pt-5">
+
+        <!-- SECTION TITLE -->
+        <h1 class="text-center mt-5 pt-5 mb-4 text-capitalize">Biggest Achievement</h1>
+
+        <p class="text-center fw-semibold text-body-tertiary text-capitalize mb-3">Logo design</p>
+
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='images/achv_1.jpg') }}" class="w-auto shadow rounded"
+                style="height: 500px;" alt="achv1">
+        </div>
+
+        <p class="text-center fw-semibold">School of Chemical Sciences, Goa University, Goa</p>
+
+    </div>
+
+
+    <!-- FROM THE MAKER SECTION PANEL -->
+
+    <div class="container my-5 pt-5">
+
+        <!-- SECTION TITLE -->
+        <h1 class="text-center mt-5 pt-5 mb-4 text-capitalize">From <span class="text-lowercase">the</span> maker</h1>
+
+        <p class="text-center fw-semibold text-body-tertiary text-capitalize mb-3 merienda-font">Our Motto</p>
+
+        <div class="text-center">
+            <img src="{{ url_for('static', filename='images/maker.jpg') }}" class="w-auto shadow mb-3" style="height: 500px;" alt="achv1">
+        </div>
+
+        <p class="col-12 col-md-7 col-xl-6 mx-auto text-center p-2 merienda-font text-body-secondary">
+            Hello,<br>
+            As the owner and artist behind MiniArt, my motto is to deliver the handmade creations at affordable, reasonable prices. Every piece I make is crafted with care, keeping your desired needs and emotions in mind. <br><br>
+
+            At Miniart, customers have the freedom to express their ideas, share their expectations, and watch their imaginations come to life. Whether it's a special occasion or a thoughtful gift, just tell me the event and the recipient’s interests and I’ll suggest the most fitting handmade gift ideas. <br><br>
+
+            This personalized approach inspires me to explore new forms of craft every day and that’s truly the most exciting part of MiniArt! <br><br>
+
+            - the maker @MiniArt
+        </p>
+
+    </div>
+
+
     <!-- TESTIMONY SECTION PANEL-->
 
     <div class="container my-5 pt-5">
 
         <!-- SECTION TITLE -->
-        <h1 class="text-center my-5 py-5 text-capitalize">Happy Customer's</h1>
+        <h1 class="text-center my-5 pt-5 text-capitalize">Happy Customer's</h1>
 
         <!-- CARD LAYOUT -->
-        <div class="row g-4 text-center">
+        <div class="row mb-3">
+            {% for review in reviews %}
+            <div class="col-12 col-md-6 mb-4">
+                <figure class="text-center">
+                    <p class="mb-4">
+                        <span class="fw-semibold">
+                            {{ review.title }}
+                        </span> <br>
 
-            <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
-                <div class="d-flex flex-column">
-                    <div class="px-2 px-md-0">
-                        <figure>
-                            <p>
-                                <span class="fw-semibold">"Absolutely Stunning!"</span><br>
-                                I ordered a handcrafted gift, and it exceeded my expectations! The attention to detail
-                                is amazing. Will definitely buy again!
-                            </p>
-                            <figcaption class="blockquote-footer">
-                                <cite title="Source Title">Sarah M.</cite>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
+                        {{ review.review }}
+                    </p>
+                    <figcaption class="blockquote-footer">
+                        <cite title="Source Title">{{ review.name }}</cite>
+                    </figcaption>
+                </figure>
             </div>
-
-            <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
-                <div class="d-flex flex-column">
-                    <div class="px-2 px-md-0">
-                        <figure>
-                            <p>
-                                <span class="fw-semibold">"Beautiful & Unique!"</span><br>
-                                The painting I received was even more beautiful in person. It’s now the centerpiece of
-                                my living room!
-                            </p>
-                            <figcaption class="blockquote-footer">
-                                <cite title="Source Title">David L.</cite>
-                            </figcaption>
-                        </figure>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SINGLE CARD -->
-            <div class="col-10 col-md-3 p-1 mx-auto mb-5">
-                <div class="d-flex flex-column">
-                    <div class="px-2 px-md-0">
-                        <figure>
-                            <p>
-                                <span class="fw-semibold">"Perfect Gift Choice!"</span><br>
-                                I bought a handmade craft as a gift, and the recipient loved it! The quality and
-                                creativity are top-notch.
-                            </p>
-                            <figcaption class="blockquote-footer">
-                                <cite title="Source Title">Emma R.</cite>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
 
+        <div class="container text-center">
+            <a class="link-underline link-underline-opacity-0" href="{{ url_for('routes.get_reviews') }}">
+                See more reviews <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
     </div>
+
+
+    <!-- BREAK SPACE -->
+    <div class="py-4"></div>
 
 
     <!-- EXPLORE MORE -->
     <div class="container my-5 text-center">
         <a href="{{ url_for('routes.store') }}" class="btn btn-primary text-capitalize px-4 my-5">
-            To Store <i class="bi bi-cart3"></i>    
+            To Store <i class="bi bi-cart3"></i>
         </a>
     </div>
 </div>

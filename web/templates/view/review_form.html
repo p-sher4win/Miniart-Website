@@ -4,7 +4,7 @@
 <div class="container-fluid">
 
     <div class="container text-center my-3 border-bottom mb-5">
-        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Contact Us</h1>
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Write about our products</h1>
     </div>
 
     <div class="container">
@@ -15,7 +15,7 @@
             <div class="col-10 col-md-8 mx-auto">
 
                 <div class="container text-center mb-4">
-                    <h6 class="text-uppercase text-body-tertiary">Feedback</h6>
+                    <h6 class="text-uppercase text-body-tertiary">Customer Review</h6>
                 </div>
 
                 <!-- FORM -->
@@ -28,9 +28,11 @@
                     </div>
 
                     <div class="form-floating my-2">
-                        {{ form.phone_number(type="tel", class="form-control", id="phone_number", placeholder="") }}
-                        {{ form.phone_number.label(for="phone_number") }}
+                        {{ form.title(type="text", class="form-control", id="title", placeholder="") }}
+                        {{ form.title.label(for="title") }}
                     </div>
+
+                    
 
                     <div class="form-floating my-2">
                         {{ form.message(type="text", class="form-control", id="message", placeholder="", style="height:
@@ -47,28 +49,7 @@
                 </form>
 
             </div>
-
-            <!-- BREAK SPACE -->
-            <div class="py-5 my-5"></div>
-
-            <!-- CONTACT DETAIL SECTION -->
-            <div class="col-10 mx-auto text-center">
-
-                <div class="container text-center mb-5">
-                    <h6 class="text-uppercase text-body-tertiary">Contact Details</h6>
-                </div>
-
-                <p class="text-body-tertiary m-0">Location</p>
-                <p class="mb-5">Panjim, Goa</p>
-
-                <p class="text-body-tertiary m-0">Email</p>
-                <p class="mb-5">miniart.0623@gmail.com</p>
-
-                <p class="text-body-tertiary m-0">Phone No</p>
-                <p>+91 8262800188</p>
-            </div>
         </div>
     </div>
-
 </div>
 {% endblock %}

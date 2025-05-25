@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="container text-center my-3 border-bottom mb-5">
+        <h1 class="display-1 fw-bold text-capitalize text-body-tertiary">Customer Reviews</h1>
+    </div>
+
+    {% if reviews %}
+    <div class="container mb-4">
+        <a href="{{ url_for('routes.review_form') }}" class="link-underline link-underline-opacity-0">
+            Write a review
+        </a>
+    </div>
+
+    <div class="container border-bottom mb-4">
+       <p>{{ reviews_count }} customer reviews</p>
+    </div>
+
+    <div class="container">
+
+        <div class="row">
+            {% for review in reviews %}
+            <div class="col-12 col-md-4 mb-5">
+                <figure>
+                    <p class="mb-4">
+                        <span class="fw-semibold">
+                            {{ review.title }}
+                        </span> <br>
+
+                        <span class="review-time-p">
+                            Reviewd on {{ review.formatted_date }}
+                        </span> <br>
+
+                        {{ review.review }}
+                    </p>
+                    <figcaption class="blockquote-footer">
+                        <cite title="Source Title">{{ review.name }}</cite>
+                    </figcaption>
+                </figure>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% else %}
+    <div class="container-fluid text-center py-5">
+        <h1 class="display-1 fw-bold mt-5 pt-5 text-capitalize text-danger">No Reviews!</h1>
+        <a href="{{ url_for('routes.review_form') }}" class="link-underline link-underline-opacity-50 link-offset-2">
+            Write a <span class="">review</span> now!
+        </a>
+    </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

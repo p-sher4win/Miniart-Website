@@ -70,7 +70,21 @@ class Feedback(Document):
     name = StringField(required=True, max_length=150)
     phone_number = StringField(required=True, max_length=150)
     message = StringField()
+    timestamp = DateTimeField(default=datetime.utcnow)
 
     # CREATE A STRING
     def __repr__(self):
         return f"<Feedback {self.name}>"
+    
+
+# CUSTOMER REVIEW MODEL
+class Review(Document):
+    meta = {'collection': 'reviews'}
+    name = StringField(require=True)
+    title = StringField(required=True)
+    review = StringField(required=True)
+    timestamp = DateTimeField(default=datetime.utcnow)
+
+    # CREATE A STRING
+    def __repr__(self):
+        return f"<Review {self.title}>"

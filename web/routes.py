@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import Products, Feedback, Categories
-from .webforms import FeedbackForm
+from .models import Products, Feedback, Categories, Review
+from .webforms import FeedbackForm, ReviewForm
 from mongoengine.errors import DoesNotExist
 from bson import ObjectId
 import random
+from datetime import datetime
 
 
 
@@ -15,9 +16,11 @@ routes = Blueprint('routes', __name__)
 def home():
 
     bestsellers = Products.objects.order_by('title')
+    reviews = Review.objects()[:2]
 
     return render_template('view/home.html',
-                           bestsellers=bestsellers)
+                           bestsellers=bestsellers,
+                           reviews=reviews)
 
 
 # INDIVIDUAL PRODUCT
@@ -55,7 +58,6 @@ def contact():
         flash("Feedback Submitted!", category='success')
         return redirect(url_for('routes.contact'))
 
-
     return render_template('view/contact.html',
                            form=form)
 
@@ -85,3 +87,38 @@ def category(id):
     return render_template('view/category_product.html',
                            category=category,
                            products=products)
+
+
+# CUSTOMER REVIEW
+@routes.route('/write_review', methods=['GET', 'POST'])
+def review_form():
+    form = ReviewForm()
+
+    if form.validate_on_submit():
+        review = Review(
+            name=form.name.data,
+            title=form.title.data,
+            review=form.message.data
+        )
+
+        review.save()
+        flash("Review Added!", category='success')
+        return redirect(url_for('routes.get_reviews'))
+
+    return render_template('view/review_form.html',
+                           form=form)
+
+
+# DISPLAY CUSTOMER REVIEWS
+@routes.route('/reviews')
+def get_reviews():
+
+    reviews = Review.objects.order_by('-timestamp')
+    reviews_count = Review.objects.count()
+
+    for review in reviews:
+        review.formatted_date = review.timestamp.strftime("%d %B %Y")
+
+    return render_template('view/reviews.html',
+                           reviews=reviews,
+                           reviews_count=reviews_count)

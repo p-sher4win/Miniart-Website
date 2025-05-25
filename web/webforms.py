@@ -64,3 +64,12 @@ class FeedbackForm(FlaskForm):
     phone_number = StringField("Phone No", validators=[DataRequired()])
     message = TextAreaField("Feedback", widget=TextArea())
     submit = SubmitField("SUBMIT")
+
+
+# CUSTOMER REVIEW FORM
+class ReviewForm(FlaskForm):
+    name = StringField("Full Name", validators=[DataRequired()])
+    title = StringField("Title", validators=[DataRequired()])
+    message = TextAreaField("Write a review", widget=TextArea(), validators=[DataRequired()])
+    submit = SubmitField("SUBMIT")
+    
