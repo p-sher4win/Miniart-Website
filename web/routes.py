@@ -66,10 +66,24 @@ def contact():
 @routes.route('/store')
 def store():
 
-    category = Categories.objects()
+    categories = list(Categories.objects())
+
+    first_category = None
+    other_categories = []
+
+    for category in categories:
+        if category.type.lower() == "quick customization":
+            first_category = category
+        else:
+            other_categories.append(category)
+
+    if first_category:
+        ordered_categories = [first_category] + other_categories
+    else:
+        ordered_categories = other_categories
 
     return render_template('view/store.html',
-                           category=category)
+                           category=ordered_categories)
 
 
 # PRODUCT UNDER A CATEGORY
@@ -77,6 +91,11 @@ def store():
 def category(id):
     try:
         category = Categories.objects.get(id=ObjectId(id))
+
+        if category.type.lower() == "quick customization":
+            return render_template('view/quick_custom.html',
+                                   category=category)
+
         products = list(Products.objects(category=category))
         random.shuffle(products)
 

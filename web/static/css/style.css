@@ -85,3 +85,10 @@ body{
   font-weight: 300;
   font-style: normal;
 }
+
+.carousel-indicators [data-bs-target] {
+  width: 6px;            /* smaller width */
+  height: 6px;           /* smaller height */
+  border-radius: 50%;    /* circular shape */
+  margin: 0 4px;         /* spacing between dots */
+}

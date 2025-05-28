@@ -24,6 +24,16 @@
                     {% if item.img_urls|length > 1 %}
                     <!-- CAROUSEL FOR MULTIPLE IMAGES -->
                     <div id="itemImagesCarousel{{ item.id }}" class="carousel slide" data-bs-ride="carousel">
+
+                        <div class="carousel-indicators">
+                            {% for url in item.img_urls %}
+                            <button type="button" data-bs-target="#itemImagesCarousel{{ item.id }}"
+                                data-bs-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"
+                                aria-current="{% if loop.first %}true{% endif %}" aria-label="Slide {{ loop.index }}">
+                            </button>
+                            {% endfor %}
+                        </div>
+
                         <div class="carousel-inner">
                             {% for url in item.img_urls %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -33,11 +43,13 @@
                         </div>
                         <button class="carousel-control-prev" type="button"
                             data-bs-target="#itemImagesCarousel{{ item.id }}" data-bs-slide="prev">
-                            <i class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                            <i
+                                class="bi bi-arrow-left-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                         <button class="carousel-control-next" type="button"
                             data-bs-target="#itemImagesCarousel{{ item.id }}" data-bs-slide="next">
-                            <i class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
+                            <i
+                                class="bi bi-arrow-right-short text-body-tertiary fw-lighter display-6 d-none d-lg-block"></i>
                         </button>
                     </div>
 
@@ -63,7 +75,8 @@
                         <tbody>
                             <tr>
                                 <td class="text-end"><span class="text-body-tertiary">Price</span></td>
-                                <td class="ps-2 ps-md-5"><span class="fw-semibold fst-italic fs-5">₹{{ item.price }}</span></td>
+                                <td class="ps-2 ps-md-5"><span class="fw-semibold fst-italic fs-5">₹{{ item.price
+                                        }}</span></td>
                             </tr>
                             <tr>
                                 <td class="text-end"><span class="text-body-tertiary">Description</span></td>
@@ -75,7 +88,8 @@
 
                 <!-- ORDER ITEM -->
                 <div class="col-12 col-sm-8 col-md-7 mx-auto text-center my-4">
-                    <a href="https://wa.me/917798010393?text=Hello,%20I%20would%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A-%20Item%20Name:%20[Enter%20Name]%0A-%20Size:%20[Enter%20Size]%0A-%20Quantity:%20[Enter%20Quantity]" class="btn btn-sm btn-success w-50 text-capitalize shadow">
+                    <a href="https://wa.me/917798010393?text=Hello,%20I%20would%20like%20to%20place%20an%20order%20for%20the%20following%20item:%0A-%20Item%20Name:%20[Enter%20Name]%0A-%20Size:%20[Enter%20Size]%0A-%20Quantity:%20[Enter%20Quantity]"
+                        class="btn btn-sm btn-success w-50 text-capitalize shadow">
                         Place <span class="text-lowercase">an</span> Order
                     </a>
                 </div>
